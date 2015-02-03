@@ -1,0 +1,83 @@
+ms-ibd
+
+ms-ibd is developed to generate IBD information under Wright-Fisher model. This software is modified based on ms. We extract the recombination breakpoints information from ms and generate the IBD information of these samples.
+
+Start with ms-ibd
+
+1. Compile ms
+
+The same procedure as standard ms. See readme for detail.
+
+2. Compile Re
+
+Re is developed to extract the information of IBD for the output of modified ms. Type
+
+	g++ Re.cpp -o Re
+
+to compile it.
+
+3. Run with ms
+
+The same parameters compared to standard ms.
+The output will contain breakpoints (historical recombination sites) of each individual(haplotype). 
+
+Example,
+
+./ms 5 1 -t 5 -r 5 100 
+33923 17238 38156
+
+//
+0:	68	23	62	81	73	93	86
+1:	68	23	62	81	73	93	86	56
+2:	58	25	90	95
+3:	58	25	90	95
+4:	68	23	62	81	73	93	86
+
+4. Run with Re
+
+	./Re -in [output of modified ms] -ibd [output IBD information file] -I [number of populations] [number of individual for each population] -rep [number of replication] -cutoff [minimum length of IBD segments] -site [total length of the sequence]
+
+Example,
+
+	./Re -in test.txt -ibd test.ibd -I 1 5 -rep 1 -cutoff 1 -site 100
+
+5. Example
+
+a. single population
+
+	./ms 10 5 -t 10 -r 10 1000 > test.txt
+
+	./Re -in test.txt -ibd test.ibd -I 1 5 -rep 5 -cutoff 100 -site 1000
+
+output file (test.ibd)
+
+1,1	//population 1 compare to population 1
+7240	//total length of IBD for first run
+7281
+7374
+6659
+7580
+Average
+7226	//average total length of IBD for 5 times repeats
+Sharing
+0.72268000	//average IBD sharing
+
+b. multiple populations
+
+	./ms 20 5 -t 10 -r 10 1000 -I 2 10 10 -ej 0.5 2 1 > test.txt
+
+	./Re -in test.txt -ibd test.ibd -I 2 10 10 -rep 5 -cutoff 100 -site 1000
+
+output file (test.ibd)
+
+1,1	1,2	2,2		//paired of compared populations
+38311	53687	25484		//total length of IBD for first run
+26402	40694	31647
+37556	68491	41692
+22340	9972	25393
+38688	33769	30562
+Average
+32659	41322	30955		//average total length of IBD for 5 times repeats
+Sharing
+0.72576444	0.41322600	0.68790222	//average IBD sharing
+
