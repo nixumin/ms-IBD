@@ -1,6 +1,7 @@
 ms-ibd
 
-ms-ibd is developed to generate IBD information under Wright-Fisher model. This software is modified based on ms. We extract the recombination breakpoints information from ms and generate the IBD information of these samples.
+ms-ibd is developed to generate IBD information under Wright-Fisher model. This software is modified based on ms. 
+We extract the recombination breakpoints information from ms and generate the IBD information of these samples.
 
 Start with ms-ibd
 
@@ -35,7 +36,9 @@ Example,
 
 4. Run with Re
 
-	./Re -in [output of modified ms] -ibd [output IBD information file] -I [number of populations] [number of individual for each population] -rep [number of replication] -cutoff [minimum length of IBD segments] -site [total length of the sequence]
+	./Re -in [output of modified ms] -ibd [output IBD information file] -I [number of populations] \
+	[number of individual for each population] -rep [number of replication] -cutoff [minimum length of IBD segments] \
+	-site [total length of the sequence]
 
 Example,
 
